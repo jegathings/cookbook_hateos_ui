@@ -26,7 +26,7 @@ registry.register('text/uri-list', function() {
 });
 registry.register('application/hal+json', require('rest/mime/type/application/hal'));
 
-function doit() {	
+function intercept() {	
 	return interceptor({
 		request: function (request /*, config, meta */) {
 			/* If the URI is a URI Template per RFC 6570 (https://tools.ietf.org/html/rfc6570), trim out the template part */
@@ -42,6 +42,6 @@ function doit() {
 }
 module.exports = rest
 	.wrap(mime, { registry: registry })
-	.wrap(doit())
+	.wrap(intercept())
 	.wrap(errorCode)
 	.wrap(defaultRequest, { headers: { 'Accept': 'application/hal+json' }});
